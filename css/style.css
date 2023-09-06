@@ -7,7 +7,7 @@
 
 body {
     height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)), url(../tugas\ 1/img/Mountain.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)), url(../img/Mountain.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     
