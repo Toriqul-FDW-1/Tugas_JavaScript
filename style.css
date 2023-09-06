@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+body {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)), url(../tugas\ 1/img/Mountain.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+
+}
+
+.container {
+    width: auto;
+    display: flex;
+    justify-content: center ;
+}
+
+.content h2{
+    margin-top: 5px;
+    color: rgb(239, 183, 0);
+    text-align: center;
+}
+.content {
+    width: 500px;
+    padding: 20px;
+    background-color: #1C1C1C;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+img.profile{
+    width: 250px;
+    height: 300;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
