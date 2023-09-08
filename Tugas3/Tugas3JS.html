@@ -19,14 +19,6 @@
         th {
             background-color: #cccccc;
         }
-
-        tr:nth-child(odd) {
-            background-color: yellow;
-        }
-
-        tr:nth-child(even) {
-            background-color: blue;
-        }
     </style>
 </head>
 
@@ -80,9 +72,10 @@
                 // Hitung take home pay
                 const takeHomePay = gajiKotor - zakatProfesi;
 
-                // Tambahkan baris data ke tabel
+                // Tambahkan baris data ke tabel dengan warna sesuai genap/ganjil
+                const rowColor = i % 2 == 0 ? 'blue' : 'yellow';
                 document.write(`
-                <tr>
+                <tr style="background-color:${rowColor}">
                     <td>${namaPegawai}</td>
                     <td>${jabatan}</td>
                     <td>${gapok}</td>
@@ -96,6 +89,7 @@
                 `);
             }
         </script>
+
     </table>
 
 </body>
