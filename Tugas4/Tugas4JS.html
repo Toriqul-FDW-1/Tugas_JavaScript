@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Toko Online</title>
+</head>
+<body bgcolor="darkgrey">
+    <div style="display: flex; justify-content:center; ">
+        <form id="tokoForm">
+            <table style="width: 100%; background-color: rgb(249, 162, 56); border: 1px solid; padding : 10px; ">
+                <tr>
+                    <th colspan="2">Form Toko Online</th>
+                </tr>
+                <tr>
+                    <td><label for="nama">Nama Pelanggan </label></td>
+                    <td> : <input type="text" id="nama" name="nama" required></td>
+                </tr>
+                <tr>
+                    <td><label for="produk">Pilih Produk </label></td>
+                    <td> : <select id="produk" name="produk">
+                        <option value="TV">TV</option>
+                        <option value="AC">AC</option>
+                        <option value="Kulkas">Kulkas</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label for="jumlah">Jumlah Item </label></td>
+                    <td> : <input type="number" id="jumlah" name="jumlah" min="1" required></td>
+                </tr>
+                <tr>
+                    <th colspan="2"> <button type="button" id="proses">Beli</button></th>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <script>
+        // Fungsi untuk menghitung harga berdasarkan produk yang dipilih
+        function hitungHargaSatuan(produk) {
+            switch (produk) {
+                case 'TV':
+                    return 2000000; // Harga TV 2 juta
+                case 'AC':
+                    return 3000000; // Harga AC 3 juta
+                case 'Kulkas':
+                    return 4000000; // Harga Kulkas 4 juta
+                default:
+                    return 0;
+            }
+        }
+
+        // Fungsi untuk menghitung transaksi dan menampilkan alert
+        function transaksi() {
+            const nama = document.getElementById('nama').value;
+            const produk = document.getElementById('produk').value;
+            const jumlah = parseInt(document.getElementById('jumlah').value);
+
+            const hargaSatuan = hitungHargaSatuan(produk);
+            const hargaKotor = hargaSatuan * jumlah;
+
+            let diskon = 0;
+            if (produk === 'Kulkas' && jumlah >= 3) {
+                diskon = 0.3 * hargaKotor; // Diskon 30% jika beli Kulkas >= 3 buah
+            } else if (produk === 'AC' && jumlah >= 3) {
+                diskon = 0.2 * hargaKotor; // Diskon 20% jika beli AC >= 3 buah
+            } else {
+                diskon = 0.1 * hargaKotor; // Diskon 10% untuk produk lainnya
+            }
+
+            const ppn = 0.1 * (hargaKotor - diskon); // PPN 10%
+            const hargaBayar = hargaKotor - diskon + ppn;
+
+            // Menampilkan hasil transaksi dalam alert
+            const pesan = `Transaksi\nNama Pelanggan : ${nama}\nProduk : ${produk}\nHarga Satuan : ${hargaSatuan}\nJumlah Item : ${jumlah}\nHarga Kotor : ${hargaKotor}\nDiskon : ${diskon}\nPPN : ${ppn}\nHarga Bayar : ${hargaBayar}`;
+            alert(pesan);
+        }
+
+        // Menambahkan event handler untuk tombol Beli
+        document.getElementById('proses').onclick = transaksi;
+    </script>
+</body>
+</html>
