@@ -1,5 +1,5 @@
 body {
-    min-height: auto;
+    min-height: 2500px;
 }
 
 .jumbotron {
@@ -16,5 +16,5 @@ footer {
 }
 
 section {
-    padding-top: 1rem;
+    padding-top: 5rem;
 }
