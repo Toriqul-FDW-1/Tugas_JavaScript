@@ -1,0 +1,7 @@
+Buatlah file yang berisi code form login 
+
+Di form_login.php buat fungsi cekLogin($username, $password)
+
+Di fungsi tersebut, cek username dan passwordnya
+
+Jika username = admin dan password = mimin diarahkan ke halaman landing page admin (buat file admin.php)
