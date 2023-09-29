@@ -1,0 +1,33 @@
+Buatlah Class KonversiSuhu dengan member class:
+
+- variabel : satuanSuhuAwal, besaranSuhu, satuanSuhuTujuan
+
+- konstruktor : satuanSuhuAwal, besaranSuhu, satuanSuhuTujuan
+
+- method : 
+
+  1. fungsi konversi dengan logika berdasarkan satuanSuhuAwal dan satuanSuhuTujuan 
+
+     (Gunakan rumus konveri suhu):
+
+  CelciusToFahrenheit 
+
+  FahrenheitToCelcius
+
+  CelciusToRheamur
+
+  RheamurToCelcius
+
+  2. fungsi cetak untuk mencetak:
+
+  Satuan Suhu Awal, Besaran Suhu, Satuan Suhu Tujuan, Hasil Konversi Suhu
+
+  memanggil fungsi konversi yang sudah dibuat di atasnya.
+
+  Cetaklah data menggunakan format tabel.
+
+Buatlah object dataKonversiSuhu:
+
+- buatlah minimal masing masing konversi suhu minimal 2 buah dari masing-masing konversi suhu
+
+- panggil fungsi cetak untuk seluruh object yang diciptakan 
