@@ -1,0 +1,65 @@
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| login              |
+| market_ku          |
+| mysql              |
+| test               |
++--------------------+
+5 rows in set (0.022 sec)
+
+MariaDB [(none)]> create database dbpegawai;
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dbpegawai          |
+| information_schema |
+| login              |
+| market_ku          |
+| mysql              |
+| test               |
++--------------------+
+6 rows in set (0.003 sec)
+
+MariaDB [(none)]> use dbpegawai;
+Database changed
+
+MariaDB [dbpegawai]> create table pegawai(
+    -> id int primary key,
+    -> nip char(5) not null unique,
+    -> nama varchar(30) not null,
+    -> gender enum('L','P') not null,
+    -> umur int not null,
+    -> berat_badan float);
+Query OK, 0 rows affected (0.051 sec)
+
+MariaDB [dbpegawai]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dbpegawai          |
+| information_schema |
+| login              |
+| market_ku          |
+| mysql              |
+| test               |
++--------------------+
+6 rows in set (0.004 sec)
+
+MariaDB [dbpegawai]> desc pegawai;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| id          | int(11)       | NO   | PRI | NULL    |       |
+| nip         | char(5)       | NO   | UNI | NULL    |       |
+| nama        | varchar(30)   | NO   |     | NULL    |       |
+| gender      | enum('L','P') | NO   |     | NULL    |       |
+| umur        | int(11)       | NO   |     | NULL    |       |
+| berat_badan | float         | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+6 rows in set (0.029 sec)
