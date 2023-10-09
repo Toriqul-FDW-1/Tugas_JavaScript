@@ -1,0 +1,110 @@
+---Selesaikan worksheet 1 Tugas mandiri---
+
+//Buat table produk
+CREATE TABLE produk (
+    id int not null auto_increment primary key,			
+    kode varchar(10),
+    nama varchar(45),
+    harga_beli double,
+    harga_jual double,
+    stok int,
+    min_stok int,
+    jenis_produk_id int not null REFERENCES jenis_produk(id)
+);
+
+MariaDB [dbpos]> desc produk;
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| id              | int(11)     | NO   | PRI | NULL    | auto_increment |
+| kode            | varchar(10) | YES  |     | NULL    |                |
+| nama            | varchar(45) | YES  |     | NULL    |                |
+| harga_beli      | double      | YES  |     | NULL    |                |
+| harga_jual      | double      | YES  |     | NULL    |                |
+| stok            | int(11)     | YES  |     | NULL    |                |
+| min_stok        | int(11)     | YES  |     | NULL    |                |
+| jenis_produk_id | int(11)     | NO   |     | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.027 sec)
+
+//Buat table pesanan_items
+CREATE TABLE pesanan_items ( 
+    id int not null auto_increment primary key,	
+    produk_id int not null REFERENCES produk(id),
+    pesanan_id int not null REFERENCES pesanan(id),
+    qty int,
+    harga double
+);
+MariaDB [dbpos]> desc pesanan_items;
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| id         | int(11) | NO   | PRI | NULL    | auto_increment |
+| produk_id  | int(11) | NO   |     | NULL    |                |
+| pesanan_id | int(11) | NO   |     | NULL    |                |
+| qty        | int(11) | YES  |     | NULL    |                |
+| harga      | double  | YES  |     | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+5 rows in set (0.024 sec)
+
+
+//Buat table vendor
+CREATE TABLE vendor(
+    id int not null auto_increment primary key,
+    nomor varchar(45),
+    nama varchar(40),
+    kota varchar(30),
+    kontak varchar(30)
+);
+MariaDB [dbpos]> desc vendor;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nomor  | varchar(45) | YES  |     | NULL    |                |
+| nama   | varchar(40) | YES  |     | NULL    |                |
+| kota   | varchar(30) | YES  |     | NULL    |                |
+| kontak | varchar(30) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+5 rows in set (0.024 sec)
+
+
+//Buat table Pembelian
+CREATE TABLE pembelian (
+    id int not null auto_increment primary key,
+    tanggal varchar(45),
+    nomor varchar(10),
+    produk_id int,
+    jumlah int,
+    harga double,
+    vendor_id int
+);
+MariaDB [dbpos]> desc pembelian;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| tanggal   | varchar(45) | YES  |     | NULL    |                |
+| nomor     | varchar(10) | YES  |     | NULL    |                |
+| produk_id | int(11)     | NO   |     | NULL    |                |
+| jumlah    | int(11)     | YES  |     | NULL    |                |
+| harga     | double      | YES  |     | NULL    |                |
+| vendor_id | int(11)     | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+7 rows in set (0.029 sec)
+
+MariaDB [dbpos]> show tables;
++-----------------+
+| Tables_in_dbpos |
++-----------------+
+| jenis_produk    |
+| kartu           |
+| pelanggan       |
+| pembayaran      |
+| pembelian       |
+| pesanan         |
+| pesanan_items   |
+| produk          |
+| vendor          |
++-----------------+
+9 rows in set (0.001 sec)
