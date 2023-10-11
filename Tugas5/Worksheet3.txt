@@ -1,0 +1,343 @@
+---SOAL 3.1---
+
+1.Tampilkan produk yang asset nya diatas 20jt
+//menghitung total asset
+SELECT * FROM produk WHERE harga_beli * stok > 20000000; ini yang betul
+
+MariaDB [dbpos]> SELECT * FROM produk WHERE harga_beli * stok > 20000000;
++----+-------+------------------+------------+------------+------+----------+-----------------+
+| id | kode  | nama             | harga_beli | harga_jual | stok | min_stok | jenis_produk_id |
++----+-------+------------------+------------+------------+------+----------+-----------------+
+|  2 | TV02  | Televisi 40 inch |    7000000 |    9600000 |    4 |        2 |               1 |
+|  3 | K001  | Kulkas 2 Pintu   |    3500000 |    4600000 |    6 |        2 |               1 |
+|  6 | KM001 | Laptop Infinix   |    7000000 |    7500000 |    5 |        3 |               2 |
+|  7 | KM002 | Laptop Asus      |   12000000 |   13000000 |   10 |        5 |               4 |
++----+-------+------------------+------------+------------+------+----------+-----------------+
+4 rows in set (0.054 sec)
+
+SELECT ...
+2.Tampilkan data produk beserta selisih stok dengan minimal stok
+SELECT SUM(stok - min_stok) as selisih from produk;
+MariaDB [dbpos]> SELECT SUM(stok - min_stok) as selisih from produk;
++---------+
+| selisih |
++---------+
+|      28 |
++---------+
+1 row in set (0.000 sec)
+
+3.Tampilkan total asset produk secara keseluruhan
+SELECT sum(stok) as total_asset from produk;
+MariaDB [dbpos]> SELECT sum(stok) as total_asset from produk;
++-------------+
+| total_asset |
++-------------+
+|          69 |
++-------------+
+1 row in set (0.001 sec)
+
+4.Tampilkan data pelanggan yang lahirnya antara tahun 1980 sampai 1990
+SELECT * FROM pelanggan WHERE YEAR(tgl_lahir) BETWEEN 1999 AND 2004;
+MariaDB [dbpos]> SELECT * FROM pelanggan WHERE YEAR(tgl_lahir) BETWEEN 1999 AND 2004;
++----+------+-------------------+------+-----------+------------+-------------------------------+----------+
+| id | kode | nama              | jk   | tmp_lahir | tgl_lahir  | email                         | kartu_id |
++----+------+-------------------+------+-----------+------------+-------------------------------+----------+
+|  1 | C001 | Merry Wulandari   | P    | Tapalang  | 2003-10-21 | wulandarikaranamu02@gmail.com |        0 |
+|  2 | C002 | Ahmad Afrisal     | L    | Campa     | 2002-04-23 | ahmadafrisal01@gmail.com      |        0 |
+|  3 | C003 | Putri Mayang Sari | P    | Mamuju    | 1999-08-01 | mayang@gmail.com              |        0 |
+|  5 | C005 | Toriqul Firdaus   | L    | Mataram   | 2000-07-30 | firdaus@gmail.com             |        0 |
+|  6 | C006 | Ahmad Gusdur      | L    | Jakarta   | 2003-09-14 | ahmad@gmail.com               |        0 |
+|  7 | C007 | Agung Zalim       | L    | Bandung   | 2004-09-20 | agung@gmail.com               |        0 |
+|  8 | C008 | Yolanda Dewi      | P    | Ambon     | 1999-02-13 | yolan@gmail.com               |        0 |
+| 10 | C010 | Citra Lestari     | P    | Jakarta   | 2002-04-14 | citra@gmail.com               |        0 |
++----+------+-------------------+------+-----------+------------+-------------------------------+----------+
+8 rows in set (0.013 sec)
+
+5.Tampilkan data pelanggan yang lahirnya tahun 1998
+SELECT * FROM pelanggan WHERE YEAR(tgl_lahir)=1998;
+MariaDB [dbpos]> SELECT * FROM pelanggan WHERE YEAR(tgl_lahir)=1998;
++----+------+------------+------+-----------+------------+-----------------+----------+
+| id | kode | nama       | jk   | tmp_lahir | tgl_lahir  | email           | kartu_id |
++----+------+------------+------+-----------+------------+-----------------+----------+
+|  9 | C009 | Bagas Agip | L    | Madura    | 1998-02-02 | bagas@gmail.com |        0 |
++----+------+------------+------+-----------+------------+-----------------+----------+
+1 row in set (0.000 sec)
+
+6.Tampilkan data pelanggan yang berulang tahun bulan agustus
+SELECT * FROM pelanggan WHERE MONTH(tgl_lahir)=08;
+MariaDB [dbpos]> SELECT * FROM pelanggan WHERE MONTH(tgl_lahir)=08;
++----+------+-------------------+------+-----------+------------+------------------+----------+
+| id | kode | nama              | jk   | tmp_lahir | tgl_lahir  | email            | kartu_id |
++----+------+-------------------+------+-----------+------------+------------------+----------+
+|  3 | C003 | Putri Mayang Sari | P    | Mamuju    | 1999-08-01 | mayang@gmail.com |        0 |
++----+------+-------------------+------+-----------+------------+------------------+----------+
+1 row in set (0.000 sec)
+
+7.Tampilkan data pelanggan : nama, tmp_lahir, tgl_lahir dan umur (selisih tahun sekarang dikurang tahun kelahiran)
+SELECT nama, tmp_lahir, tgl_lahir, (YEAR(NOW())-YEAR(tgl_lahir)) AS umur FROM pelanggan;
+MariaDB [dbpos]> SELECT nama, tmp_lahir, tgl_lahir, (YEAR(NOW())-YEAR(tgl_lahir)) AS umur FROM pelanggan;
++-------------------+-----------+------------+------+
+| nama              | tmp_lahir | tgl_lahir  | umur |
++-------------------+-----------+------------+------+
+| Merry Wulandari   | Tapalang  | 2003-10-21 |   20 |
+| Ahmad Afrisal     | Campa     | 2002-04-23 |   21 |
+| Putri Mayang Sari | Mamuju    | 1999-08-01 |   24 |
+| Andi ALviansyah   | Majene    | 2006-03-23 |   17 |
+| Toriqul Firdaus   | Mataram   | 2000-07-30 |   23 |
+| Ahmad Gusdur      | Jakarta   | 2003-09-14 |   20 |
+| Agung Zalim       | Bandung   | 2004-09-20 |   19 |
+| Yolanda Dewi      | Ambon     | 1999-02-13 |   24 |
+| Bagas Agip        | Madura    | 1998-02-02 |   25 |
+| Citra Lestari     | Jakarta   | 2002-04-14 |   21 |
++-------------------+-----------+------------+------+
+10 rows in set (0.000 sec)
+
+
+---SOAL 3.2---
+
+1.Berapa jumlah pelanggan yang tahun lahirnya 1998
+MariaDB [dbpos]> SELECT COUNT(*) AS jumlah_pelanggan FROM pelanggan WHERE YEAR(tgl_lahir) = 1998;
++------------------+
+| jumlah_pelanggan |
++------------------+
+|                1 |
++------------------+
+1 row in set (0.001 sec)
+
+2.Berapa jumlah pelanggan perempuan yang tempat lahirnya di Jakarta
+MariaDB [dbpos]> SELECT COUNT(*) AS pelanggan_perempuan FROM pelanggan WHERE jk = 'P' AND tmp_lahir = 'jakarta';
++---------------------+
+| pelanggan_perempuan |
++---------------------+
+|                   1 |
++---------------------+
+1 row in set (0.003 sec)
+
+3.Berapa jumlah total stok semua produk yang harga jualnya dibawah 10rb
+MariaDB [dbpos]> SELECT SUM(stok) AS jumlah_total_stok FROM produk WHERE harga_jual < 10000;
++-------------------+
+| jumlah_total_stok |
++-------------------+
+|                 6 |
++-------------------+
+1 row in set (0.000 sec)
+
+4.Ada berapa produk yang mempunyai kode awal K
+MariaDB [dbpos]> SELECT COUNT(*) AS jumlah_produk FROM produk WHERE kode LIKE 'K%'; 
++---------------+
+| jumlah_produk |
++---------------+
+|             3 |
++---------------+
+1 row in set (0.000 sec)
+
+5.Berapa harga jual rata-rata produk yang diatas 1jt
+MariaDB [dbpos]> SELECT AVG(harga_jual) AS harga_rata2 FROM produk WHERE harga_jual > 1000000;
++-------------+
+| harga_rata2 |
++-------------+
+|     6420000 |
++-------------+
+1 row in set (0.001 sec)
+
+6.Tampilkan jumlah stok yang paling besar
+MariaDB [dbpos]> SELECT MAX(stok) AS jumlah_stok FROM produk;
++-------------+
+| jumlah_stok |
++-------------+
+|          20 |
++-------------+
+1 row in set (0.001 sec)
+
+7.Ada berapa produk yang stoknya kurang dari minimal stok
+MariaDB [dbpos]> SELECT COUNT(*) AS produk FROM produk WHERE stok < min_stok;
++--------+
+| produk |
++--------+
+|      1 |
++--------+
+1 row in set (0.001 sec)
+
+8.Berapa total asset dari keseluruhan produk
+MariaDB [dbpos]> SELECT SUM(harga_jual) AS total_asset FROM produk;
++-------------+
+| total_asset |
++-------------+
+|    45560500 |
++-------------+
+1 row in set (0.001 sec)
+
+---SOAL 3.3---
+
+1.Tampilkan data produk : id, nama, stok dan informasi jika stok telah sampai batas minimal atau kurang dari minimum stok dengan informasi ‘segera belanja’ jika tidak ‘stok aman’.
+MariaDB [dbpos]> SELECT id, nama, stok,
+    -> CASE
+    -> WHEN stok < min_stok THEN 'segera belanja'
+    -> ELSE 'stok aman'
+    -> END AS status_stok FROM produk;
++----+------------------+------+----------------+
+| id | nama             | stok | status_stok    |
++----+------------------+------+----------------+
+|  1 | Televisi 21 inch |    5 | stok aman      |
+|  2 | Televisi 40 inch |    4 | stok aman      |
+|  3 | Kulkas 2 Pintu   |    6 | stok aman      |
+|  4 | Meja Makan       |    4 | stok aman      |
+|  5 | Teh Kotak        |    6 | segera belanja |
+|  6 | Laptop Infinix   |    5 | stok aman      |
+|  7 | Laptop Asus      |   10 | stok aman      |
+|  8 | Doritos          |   20 | stok aman      |
+|  9 | Kursi Rias       |    5 | stok aman      |
+| 10 | HP Realme        |    4 | stok aman      |
++----+------------------+------+----------------+
+10 rows in set (0.001 sec)
+2.Tampilkan data pelanggan: id, nama, umur dan kategori umur : jika umur < 17 → ‘muda’ , 17-55 → ‘Dewasa’, selainnya ‘Tua’
+MariaDB [dbpos]> SELECT id, nama, umur,
+    -> CASE
+    -> WHEN umur < 17 THEN 'muda'
+    -> WHEN umur BETWEEN 17 AND 55
+    -> THEN 'Dewasa'
+    -> ELSE 'Tua'
+    -> END AS kategori_umur FROM pelanggan;
++----+-------------------+------+---------------+
+| id | nama              | umur | kategori_umur |
++----+-------------------+------+---------------+
+|  1 | Merry Wulandari   |   20 | Dewasa        |
+|  2 | Ahmad Afrisal     |   21 | Dewasa        |
+|  3 | Putri Mayang Sari |   24 | Dewasa        |
+|  4 | Andi ALviansyah   |   17 | Dewasa        |
+|  5 | Toriqul Firdaus   |   23 | Dewasa        |
+|  6 | Ahmad Gusdur      |   20 | Dewasa        |
+|  7 | Agung Zalim       |   19 | Dewasa        |
+|  8 | Yolanda Dewi      |   24 | Dewasa        |
+|  9 | Bagas Agip        |   25 | Dewasa        |
+| 10 | Citra Lestari     |   21 | Dewasa        |
+| 11 | Husain Ali        |   60 | Tua           |
+| 12 | Siti Aisyah       |   59 | Tua           |
++----+-------------------+------+---------------+
+12 rows in set (0.000 sec)
+
+3.Tampilkan data produk: id, kode, nama, dan bonus untuk kode ‘TV01’ →’DVD Player’ , ‘K001’ → ‘Rice Cooker’ selain dari diatas ‘Tidak Ada’
+MariaDB [dbpos]> SELECT id, kode, nama,
+    -> CASE
+    -> WHEN kode = 'TV01' THEN 'DVD Player'
+    -> WHEN kode = 'K001' THEN 'Rice Cooker'
+    -> ELSE 'Tidak Ada'
+    -> END AS bonus FROM produk;
++----+-------+------------------+-------------+
+| id | kode  | nama             | bonus       |
++----+-------+------------------+-------------+
+|  1 | TV01  | Televisi 21 inch | DVD Player  |
+|  2 | TV02  | Televisi 40 inch | Tidak Ada   |
+|  3 | K001  | Kulkas 2 Pintu   | Rice Cooker |
+|  4 | M001  | Meja Makan       | Tidak Ada   |
+|  5 | TK01  | Teh Kotak        | Tidak Ada   |
+|  6 | KM001 | Laptop Infinix   | Tidak Ada   |
+|  7 | KM002 | Laptop Asus      | Tidak Ada   |
+|  8 | MK001 | Doritos          | Tidak Ada   |
+|  9 | M002  | Kursi Rias       | Tidak Ada   |
+| 10 | EK001 | HP Realme        | Tidak Ada   |
++----+-------+------------------+-------------+
+10 rows in set (0.001 sec)
+
+---SOAL 3.4---
+
+1.Tampilkan data statistik jumlah tempat lahir pelanggan
+MariaDB [dbpos]> SELECT tmp_lahir, COUNT(*) AS jumlah_tmp_lahir FROM pelanggan GROUP BY tmp_lahir;
++-----------+------------------+
+| tmp_lahir | jumlah_tmp_lahir |
++-----------+------------------+
+| Ambon     |                1 |
+| Bandung   |                1 |
+| Campa     |                1 |
+| Jakarta   |                2 |
+| Madura    |                1 |
+| Majene    |                1 |
+| Mamuju    |                1 |
+| Mataram   |                1 |
+| Solo      |                1 |
+| Surabaya  |                1 |
+| Tapalang  |                1 |
++-----------+------------------+
+11 rows in set (0.000 sec)
+
+2.Tampilkan jumlah statistik produk berdasarkan jenis produk
+MariaDB [dbpos]> SELECT jenis_produk_id, COUNT(*) AS jumlah_produk FROM produk GROUP BY jenis_produk_id;
++-----------------+---------------+
+| jenis_produk_id | jumlah_produk |
++-----------------+---------------+
+|               1 |             3 |
+|               2 |             4 |
+|               3 |             1 |
+|               4 |             2 |
++-----------------+---------------+
+4 rows in set (0.001 sec)
+
+3.Tampilkan data pelanggan yang usianya dibawah rata usia pelanggan
+MariaDB [dbpos]> SELECT * FROM pelanggan WHERE umur < (SELECT AVG(umur) FROM pelanggan);
++----+------+-------------------+------+-----------+------------+------+-------------------------------+----------+
+| id | kode | nama              | jk   | tmp_lahir | tgl_lahir  | umur | email                         | kartu_id |
++----+------+-------------------+------+-----------+------------+------+-------------------------------+----------+
+|  1 | C001 | Merry Wulandari   | P    | Tapalang  | 2003-10-21 |   20 | wulandarikaranamu02@gmail.com |        3 |
+|  2 | C002 | Ahmad Afrisal     | L    | Campa     | 2002-04-23 |   21 | ahmadafrisal01@gmail.com      |        2 |
+|  3 | C003 | Putri Mayang Sari | P    | Mamuju    | 1999-08-01 |   24 | mayang@gmail.com              |        1 |
+|  4 | C004 | Andi ALviansyah   | L    | Majene    | 2006-03-23 |   17 | Andi@gmail.com                |        1 |
+|  5 | C005 | Toriqul Firdaus   | L    | Mataram   | 2000-07-30 |   23 | firdaus@gmail.com             |        2 |
+|  6 | C006 | Ahmad Gusdur      | L    | Jakarta   | 2003-09-14 |   20 | ahmad@gmail.com               |        3 |
+|  7 | C007 | Agung Zalim       | L    | Bandung   | 2004-09-20 |   19 | agung@gmail.com               |        1 |
+|  8 | C008 | Yolanda Dewi      | P    | Ambon     | 1999-02-13 |   24 | yolan@gmail.com               |        2 |
+|  9 | C009 | Bagas Agip        | L    | Madura    | 1998-02-02 |   25 | bagas@gmail.com               |        3 |
+| 10 | C010 | Citra Lestari     | P    | Jakarta   | 2002-04-14 |   21 | citra@gmail.com               |        1 |
++----+------+-------------------+------+-----------+------------+------+-------------------------------+----------+
+10 rows in set (0.006 sec)
+
+4.Tampilkan data produk yang harganya diatas rata-rata harga produk
+MariaDB [dbpos]> SELECT * FROM produk WHERE harga_jual > (SELECT AVG(harga_jual) FROM produk);
++----+-------+------------------+------------+------------+------+----------+-----------------+
+| id | kode  | nama             | harga_beli | harga_jual | stok | min_stok | jenis_produk_id |
++----+-------+------------------+------------+------------+------+----------+-----------------+
+|  1 | TV01  | Televisi 21 inch |    3500000 |    5040000 |    5 |        2 |               1 |
+|  2 | TV02  | Televisi 40 inch |    7000000 |    9600000 |    4 |        2 |               1 |
+|  3 | K001  | Kulkas 2 Pintu   |    3500000 |    4600000 |    6 |        2 |               1 |
+|  6 | KM001 | Laptop Infinix   |    7000000 |    7500000 |    5 |        3 |               2 |
+|  7 | KM002 | Laptop Asus      |   12000000 |   13000000 |   10 |        5 |               4 |
++----+-------+------------------+------------+------------+------+----------+-----------------+
+5 rows in set (0.001 sec)
+
+5.Tampilkan data pelanggan yang memiliki kartu dimana iuran tahunan kartu diatas 90rb
+MariaDB [dbpos]> SELECT pelanggan.*, kartu.iuran
+    -> FROM pelanggan
+    -> JOIN kartu ON pelanggan.kartu_id = kartu.id
+    -> WHERE pelanggan.kartu_id = 1 AND kartu.iuran > 90000;
++----+------+-------------------+------+-----------+------------+------+------------------+----------+---------+
+| id | kode | nama              | jk   | tmp_lahir | tgl_lahir  | umur | email            | kartu_id | iuran   |
++----+------+-------------------+------+-----------+------------+------+------------------+----------+---------+
+|  3 | C003 | Putri Mayang Sari | P    | Mamuju    | 1999-08-01 |   24 | mayang@gmail.com |        1 | 1000000 |
+|  4 | C004 | Andi ALviansyah   | L    | Majene    | 2006-03-23 |   17 | Andi@gmail.com   |        1 | 1000000 |
+|  7 | C007 | Agung Zalim       | L    | Bandung   | 2004-09-20 |   19 | agung@gmail.com  |        1 | 1000000 |
+| 10 | C010 | Citra Lestari     | P    | Jakarta   | 2002-04-14 |   21 | citra@gmail.com  |        1 | 1000000 |
++----+------+-------------------+------+-----------+------------+------+------------------+----------+---------+
+4 rows in set (0.001 sec)
+
+6.Tampilkan statistik data produk dimana harga produknya dibawah rata-rata harga produk secara keseluruhan
+MariaDB [dbpos]> SELECT AVG(harga_jual) AS harga_rata2 FROM produk WHERE harga_jual < (SELECT AVG(harga_jual) AS harga_rata2 FROM produk);
++-------------+
+| harga_rata2 |
++-------------+
+|     1164100 |
++-------------+
+1 row in set (0.001 sec)
+
+7.Tampilkan data pelanggan yang memiliki kartu dimana diskon kartu yang diberikan diatas 3%
+MariaDB [dbpos]> SELECT pelanggan.*, kartu.diskon
+    -> FROM pelanggan
+    -> JOIN kartu ON pelanggan.kartu_id = kartu.id
+    -> WHERE pelanggan.kartu_id = 1 AND kartu.diskon > 0.03;
++----+------+-------------------+------+-----------+------------+------+------------------+----------+--------+
+| id | kode | nama              | jk   | tmp_lahir | tgl_lahir  | umur | email            | kartu_id | diskon |
++----+------+-------------------+------+-----------+------------+------+------------------+----------+--------+
+|  3 | C003 | Putri Mayang Sari | P    | Mamuju    | 1999-08-01 |   24 | mayang@gmail.com |        1 |   0.05 |
+|  4 | C004 | Andi ALviansyah   | L    | Majene    | 2006-03-23 |   17 | Andi@gmail.com   |        1 |   0.05 |
+|  7 | C007 | Agung Zalim       | L    | Bandung   | 2004-09-20 |   19 | agung@gmail.com  |        1 |   0.05 |
+| 10 | C010 | Citra Lestari     | P    | Jakarta   | 2002-04-14 |   21 | citra@gmail.com  |        1 |   0.05 |
++----+------+-------------------+------+-----------+------------+------+------------------+----------+--------+
+4 rows in set (0.001 sec)
